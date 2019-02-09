@@ -30,6 +30,16 @@ export default {
       Teaser
     },
 
+    head(){
+      return {
+        title: "Best Products",
+        meta: [
+          {name: "description", content: "best products ever"},
+          //{property: "og:image", content: "TO BE CHANGED"},
+        ]
+      }
+    },
+
     asyncData (context) {
       let _this = this;
       let query = 'node?query=' + encodeURIComponent(`{
@@ -60,7 +70,7 @@ export default {
         })
   },
   mounted () {
-
+    //console.log(this.articles)
   }
 
 }

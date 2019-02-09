@@ -110,7 +110,7 @@ export default {
   },
 
   mounted () {
-    console.log(this.article);
+    //console.log(this.article);
   }
 
 }
