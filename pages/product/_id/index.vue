@@ -9,9 +9,7 @@
 
       <img v-if="element.type==='image'" :src="element.data.file.url" alt="" class="b-teaser__img">
 
-      <div v-if="element.type==='text'" class="b-teaser__text" >
-        {{element.data.text}}
-      </div>
+      <div v-html="element.data.text" v-if="element.type==='text'" class="b-teaser__text" ></div>
 
       <Teaser v-if="element.type==='node'" :article="element.element_item" />
 
@@ -95,7 +93,11 @@ export default {
         }
       }
     }`);
-    return axios.get(process.env.apiServer + query)
+    
+    return axios.request({
+      method: 'GET',
+      url: process.env.apiServer + query,
+    })
     .then(function(response){
       return {article: response.data.data.nodes[0]};
     })
@@ -110,7 +112,8 @@ export default {
   },
 
   mounted () {
-    //console.log(this.article);
+    // window.x = this.article.elements[1].data.text
+    // console.log(this.article.elements[1].data.text);
   }
 
 }

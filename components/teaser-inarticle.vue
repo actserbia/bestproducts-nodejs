@@ -1,20 +1,15 @@
 <template>
 
-
-
   <div>
 
-
     <a :href='article.additional_fields.external_url' class="b-product">
-
-
       <img :src='article.elements[0].data.file.url' class="b-product__img" />
       <div class="b-product__content">
         <mark>1 of 10</mark>
         <h3>{{article.title}}</h3>
         <h4>$--.--</h4>
-        <a href='/'><div class="b-product__button">Shop Now</div></a>
-        <p class="b-product__text">{{article.elements[1].data.text}}</p>
+        <span href='/'><div class="b-product__button">Shop Now</div></span>
+        <p v-html="article.elements[1].data.text" class="b-product__text"></p>
         <p class="b-product__link">More: <span> 13 shades of gray</span></p>
       </div>
     </a>
