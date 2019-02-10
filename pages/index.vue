@@ -65,8 +65,9 @@ export default {
         .then(function(response){
           return {articles: response.data.data.nodes}
         })
-        .catch(function (error) {
-          console.log(error);
+        .catch(function (error) {          
+          context.error({statusCode:500, error:"out of api server"});
+          return {articles:false};
         })
   },
   mounted () {
