@@ -2,10 +2,18 @@
   width: 100%;
   max-width: 832px;
   margin-bottom: 107px;
+  @include breakpoint(mobile) {
+    margin-bottom: 12px;
+  }
 }
 .b-teaser__text {
   width: 100%;
   padding-left:16px;
   padding-right: 34px;
   padding-top:16px;
+  @include breakpoint(mobile) {
+    padding-left:0;
+    padding-right:0;
+
+  }
 }

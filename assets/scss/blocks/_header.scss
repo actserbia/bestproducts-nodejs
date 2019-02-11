@@ -5,6 +5,9 @@ header {
   .search-ico {
     float: right;
     width: 12px;
+    @include breakpoint(mobile) {
+      margin-right: 0;
+    }
     margin:30px;
   }
 }
@@ -29,5 +32,5 @@ header {
   color: #ffffff;
   text-transform: uppercase;
   margin-right: 14px;
-  font-family: 'RB-Bold';
+  // font-family: 'RB-Bold';
 }
