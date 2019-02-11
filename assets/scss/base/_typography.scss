@@ -1,21 +1,29 @@
 $text__family--RB:  'Roboto', sans-serif;
 $base__font-size: 16px !default;
 $base__line: 20 !default;
-@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
 
 @font-face {
-    font-family: 'RB';
-    src: url('/src/font/RB-Light.woff') format("woff")
-         // url(../font/RB-Light.eot),
-
-         // url(../font/RB-Light.svg) format("svg");
+    font-family: 'Roboto';
+    src: url('/src/font/Roboto-Medium.woff2') format('woff2'),
+        url('/src/font/Roboto-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
 }
-@font-face {
-    font-family: 'RB-Bold';
-    src: url('/src/font/RB-Bold.woff') format("woff")
-         // url(../font/RB-Light.eot),
 
-         // url(../font/RB-Light.svg) format("svg");
+@font-face {
+    font-family: 'Roboto';
+    src: url('/src/font/Roboto-Bold.woff2') format('woff2'),
+        url('/src/font/Roboto-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('/src/font/Roboto-Light.woff2') format('woff2'),
+        url('/src/font/Roboto-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
 }
 html {
   font-family: $text__family--RB;
