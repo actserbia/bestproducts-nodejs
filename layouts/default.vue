@@ -4,8 +4,8 @@
     <header>
       <div class="container">
         <ul class="nav">
-          <a href='#'><li class="nav__item">Beaty</li></a>
-          <a href='#'><li class="nav__item">Sport</li></a>
+           <nuxt-link to="/Beauty"><li class="nav__item">Beauty</li></nuxt-link>
+           <nuxt-link  to="/Tech"><li class="nav__item">Tech</li></nuxt-link>
         </ul>
         <svg class='search-ico' xmlns="http://www.w3.org/2000/svg" id="search" viewBox="0 0 11.855 11.855">
             <defs>

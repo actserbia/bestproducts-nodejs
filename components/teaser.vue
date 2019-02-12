@@ -1,7 +1,4 @@
 <template>
-
-
-
   <article>
     <!--pre>{{article}}</pre-->
     <div class="b-category">

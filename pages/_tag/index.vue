@@ -42,36 +42,42 @@ export default {
 
     asyncData (context) {
       let _this = this;
-      let query = 'node?query=' + encodeURIComponent(`{
-        nodes(node_type: "Review") {
-          id
-          title
-          additional_fields {
-            ... on TypeReview {
-              intro
-            }
-          }
-          tags {
-            id
-            name
-          }
-          elements(type: "image") {
-            type
-            data
-          }
-        }
-      }`);
+      // console.log(context.params.category );
+      let query = 'tag?query=' + encodeURIComponent(`{
+        tags(name: "${context.params.tag}") {
+      	id
+      	name
+      	nodes(node_type: "Review") {
+        id
+        title
+      	additional_fields {
+        	... on TypeReview {
+          	intro
+        	}
+      	}
+      	tags {
+        	id
+        	name
+      	}
+      	elements(type: "image") {
+          	type
+          	data
+      	}
+    	  }
+      }
+     }`);
     return     axios.get(process.env.apiServer + query)
         .then(function(response){
-          return {articles: response.data.data.nodes}
+          return {articles: response.data.data.tags[0].nodes}
         })
         .catch(function (error) {
-          context.error({statusCode:500, error:"out of api server"});
+          context.error({statusCode:404, error:"not found"});
           return {articles:false};
         })
   },
   mounted () {
-    //console.log(this.articles)
+    console.log(this.articles);
+    // window.x = this.articles;
   }
 
 }
