@@ -1,6 +1,7 @@
 .container {
   width:100%;
-  max-width: 1144px;
+  max-width: 1184px;
+  padding:0 20px;
   // background: red;
   margin: 0 auto;
   @include breakpoint(mobile) {

@@ -5,12 +5,16 @@
   width: 51.57%;
   display: inline-block;
   vertical-align: top;
+  svg {
+    width: 100%;
+  }
   @include breakpoint(mobile) {
     width: 100%;
   }
 }
 .b-category__content {
   width: 47.23%;
+  padding-right: 3%;
   display: inline-block;
   vertical-align: top;
   .date {

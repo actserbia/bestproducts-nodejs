@@ -22,26 +22,29 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
-
+  loading: { color: '#ff0000' },
   /*
   ** Global CSS
   */
   css: [
     '@/assets/scss/example.scss'
   ],
-
+  manifest: {
+    name: 'Best Products',
+    short_name: 'BestProducts',
+    description: "Fastest web app on the market.",
+    lang: 'en-US'
+  },
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [
-  ],
-
+  plugins: ['~/plugins/vue-lazyload'],
   /*
   ** Nuxt.js modules
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
+    '@nuxtjs/pwa',
     '@nuxtjs/axios'
   ],
   /*
