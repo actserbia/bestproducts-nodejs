@@ -11,7 +11,10 @@
 
       <div v-html="element.data.text" v-if="element.type==='text'" class="b-teaser__text" ></div>
 
-      <Teaser v-if="element.type==='node'" :article="element.element_item" />
+      <lazy-component @show="handler">
+         <Teaser v-if="element.type==='node'" :article="element.element_item" />
+      </lazy-component>
+
 
     </div>
 
@@ -25,13 +28,25 @@
 
 import Vue from 'vue'
 import axios from 'axios';
-
+import VueLazyload from 'vue-lazyload'
 import Teaser from '@/components/teaser-inarticle.vue'
+
+Vue.use(VueLazyload, {
+  lazyComponent: true,
+  preLoad: 1
+});
+
 
 export default {
 
   components: {
     Teaser
+  },
+  methods: {
+    handler (component) {
+        console.log(`is showing`);
+    }
+
   },
 
   head(){
@@ -93,7 +108,7 @@ export default {
         }
       }
     }`);
-    
+
     return axios.request({
       method: 'GET',
       url: process.env.apiServer + query,
@@ -111,10 +126,13 @@ export default {
     });
   },
 
-  mounted () {
-    // window.x = this.article.elements[1].data.text
-    // console.log(this.article.elements[1].data.text);
-  }
+  // beforeMounted() {
+  //   // window.x = this.article.elements[1].data.text
+  //   // console.log(this.article.elements[1].data.text);
+  //   Vue.use(VueLazyload, {
+  //     lazyComponent: true
+  //   });
+  // }
 
 }
 </script>

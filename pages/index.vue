@@ -1,12 +1,13 @@
 <template>
   <section class="container">
-    <div v-for="article in articles">
+    <div v-for="(article, index) in articles">
 
 
-      <nuxt-link :to="{name: 'product-id', params: {id: article.id}}" :data-art-id='article.id'>
-
-        <Teaser :article="article" />
-
+      <nuxt-link :to="{name: 'product-id', params: {id: article.id}}" :key="article.id"  :data-art-id='article.id'>
+        <lazy-component v-if='index>1' @show="handler">
+           <Teaser :article="article" />
+        </lazy-component>
+        <Teaser v-else :article="article" />
       </nuxt-link>
 
 
@@ -22,6 +23,21 @@ import Vue from 'vue'
 import axios from 'axios';
 
 import Teaser from '@/components/teaser.vue'
+import VueLazyload from 'vue-lazyload'
+
+
+Vue.use(VueLazyload, {
+  lazyComponent: true,
+  preLoad: 1,
+  observer: true,
+
+  // optional
+  observerOptions: {
+    rootMargin: '0px',
+    threshold: 0.1
+  },
+});
+
 
 export default {
 
@@ -29,7 +45,11 @@ export default {
     components: {
       Teaser
     },
-
+    methods: {
+      handler (component) {
+          console.log(`${component}is showing`);
+      }
+    },
     head(){
       return {
         title: "Best Products",
@@ -72,6 +92,7 @@ export default {
   },
   mounted () {
     //console.log(this.articles)
+
   }
 
 }

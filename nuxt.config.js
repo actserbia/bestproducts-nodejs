@@ -2,6 +2,10 @@ const pkg = require('./package')
 
 
 module.exports = {
+  // server: {
+  //   host: "192.168.0.143",
+  //   port: 3333
+  // },
   mode: 'universal',
 
   /*
@@ -15,7 +19,16 @@ module.exports = {
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+        href: "https://fonts.gstatic.com",
+        rel: "preconnect",
+        crossorigin: "crossorigin"
+      },
+      {
+        href:"https://fonts.googleapis.com/css?family=Roboto:300,400,700",
+        rel:"stylesheet"
+      }
     ]
   },
 
@@ -38,7 +51,7 @@ module.exports = {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: ['~/plugins/vue-lazyload'],
+  // plugins: ['~/plugins/vue-lazyload'],
   /*
   ** Nuxt.js modules
   */
@@ -54,7 +67,9 @@ module.exports = {
     // See https://github.com/nuxt-community/axios-module#options
     // requestInterceptor:
   },
-
+  workbox: {
+    // autoRegister:false
+  },
   /*
   ** Build configuration
   */

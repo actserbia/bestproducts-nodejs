@@ -12,7 +12,8 @@
         <p>{{article.additional_fields.intro}}</p>
         <p class='author'>Bill Fergus</p>
       </div>
-      <img v-lazy="getImgSrc(article)" alt="" class="b-category__img">
+
+      <img :src="getImgSrc(article)" alt="" class="b-category__img">
       <!-- <div class='b-category__img' v-lazy-container="{ selector: 'img' }"  v-html= "getImgSrc(article)"></div> -->
     </div>
   </article>
