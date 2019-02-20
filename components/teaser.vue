@@ -13,7 +13,8 @@
         <p class='author'>Bill Fergus</p>
       </div>
 
-      <img :src="getImgSrc(article)" alt="" class="b-category__img">
+      <img v-if='index > 1' v-lazy="getImgSrc(article)" @show="handler" alt="" class="b-category__img">
+      <img v-else :src="getImgSrc(article)" alt="" class="b-category__img">
       <!-- <div class='b-category__img' v-lazy-container="{ selector: 'img' }"  v-html= "getImgSrc(article)"></div> -->
     </div>
   </article>
@@ -21,14 +22,23 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import VueLazyload from 'vue-lazyload'
+
+Vue.use(VueLazyload, {
+
+});
 
 export default {
 
   props: [
-    "article"
+    "article",
+    "index"
   ],
-
   methods: {
+    handler (component) {
+        console.log(`${component} is showing`);
+    },
     getImgSrc: function (article) {
       let imgElement = article.elements.filter(obj => {
         return obj.type === "image"

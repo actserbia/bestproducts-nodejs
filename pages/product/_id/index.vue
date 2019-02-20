@@ -5,16 +5,21 @@
     <h1>{{article.title}}</h1>
     <h5 v-html="article.additional_fields.intro"></h5>
 
-    <div class="b-teaser" v-for="element in article.elements">
+    <div class="b-teaser" v-for="( element, index) in article.elements">
+      <div v-if="index > 1" class='more-than-one'>
+        <img v-if="element.type==='image'" v-lazy="element.data.file.url" alt="" class="b-teaser__img">
 
-      <img v-if="element.type==='image'" :src="element.data.file.url" alt="" class="b-teaser__img">
+        <div v-html="element.data.text" v-if="element.type==='text'" class="b-teaser__text" ></div>
 
-      <div v-html="element.data.text" v-if="element.type==='text'" class="b-teaser__text" ></div>
+        <Teaser :isLazy="true" v-if="element.type==='node'" :article="element.element_item" />
+      </div>
+      <div v-else class='one'>
+        <img v-if="element.type==='image'" :src="element.data.file.url" alt="" class="b-teaser__img">
 
-      <lazy-component @show="handler">
-         <Teaser v-if="element.type==='node'" :article="element.element_item" />
-      </lazy-component>
+        <div v-html="element.data.text" v-if="element.type==='text'" class="b-teaser__text" ></div>
 
+        <Teaser :isLazy="false" v-if="element.type==='node'" :article="element.element_item" />
+      </div>
 
     </div>
 
@@ -28,26 +33,19 @@
 
 import Vue from 'vue'
 import axios from 'axios';
-import VueLazyload from 'vue-lazyload'
 import Teaser from '@/components/teaser-inarticle.vue'
+import VueLazyload from 'vue-lazyload'
 
 Vue.use(VueLazyload, {
-  lazyComponent: true,
-  preLoad: 1
-});
 
+});
 
 export default {
 
   components: {
     Teaser
   },
-  methods: {
-    handler (component) {
-        console.log(`is showing`);
-    }
 
-  },
 
   head(){
     return {

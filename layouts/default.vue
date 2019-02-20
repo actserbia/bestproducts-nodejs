@@ -4,8 +4,8 @@
     <header>
       <div class="container">
         <ul class="nav">
-           <li class="nav__item"><nuxt-link to="/Beauty">Beauty</nuxt-link></li>
-           <li class="nav__item"><nuxt-link  to="/Tech">Tech</nuxt-link></li>
+           <li class="nav__item"><nuxt-link to="/beauty">Beauty</nuxt-link></li>
+           <li class="nav__item"><nuxt-link  to="/tech">Tech</nuxt-link></li>
         </ul>
         <svg class='search-ico' xmlns="http://www.w3.org/2000/svg" id="search" viewBox="0 0 11.855 11.855">
             <defs>
@@ -20,7 +20,7 @@
         </ul>
       </div>
     </header>
-    
+
     <nuxt />
 
 

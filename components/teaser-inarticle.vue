@@ -3,7 +3,8 @@
   <div>
 
     <a :href='article.additional_fields.external_url' class="b-product">
-      <img :src='article.elements[0].data.file.url' class="b-product__img" />
+      <img v-if='isLazy' v-lazy='article.elements[0].data.file.url' class="b-product__img lazy" />
+      <img v-else :src='article.elements[0].data.file.url' class="b-product__img" />
       <div class="b-product__content">
         <mark>1 of 10</mark>
         <h3>{{article.title}}</h3>
@@ -19,12 +20,18 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import VueLazyload from 'vue-lazyload'
 
+Vue.use(VueLazyload, {
+
+});
 
 export default {
 
   props: [
-    "article"
+    "article",
+    "isLazy"
   ],
 
   methods: {

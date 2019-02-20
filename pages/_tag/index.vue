@@ -4,11 +4,7 @@
 
 
       <nuxt-link :to="{name: 'product-id', params: {id: article.id}}" :data-art-id='article.id'>
-        <lazy-component v-if='index > 1' @show="handler">
-          <Teaser :article="article" />
-
-        </lazy-component>
-         <Teaser v-else :article="article" />
+        <Teaser :index="index" :article="article" />
       </nuxt-link>
 
 
@@ -23,24 +19,12 @@
 import Vue from 'vue'
 import axios from 'axios';
 import Teaser from '@/components/teaser.vue'
-import VueLazyload from 'vue-lazyload'
-
-
-Vue.use(VueLazyload, {
-  lazyComponent: true,
-  preLoad: 1
-});
 
 export default {
 
 
     components: {
       Teaser
-    },
-    methods: {
-      handler (component) {
-          console.log(`${component}is showing`);
-      }
     },
     head(){
       return {
