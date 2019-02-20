@@ -4,8 +4,9 @@
     <div class="b-category">
       <div class="b-category__content">
         <div class='b-category__heading'>
-          <div class="b-category__tag">{{article.tags[0].name}}</div>
-          <!--div class='date'>Feb 7, 2019</div-->
+
+          <div v-if="article.tags[0]" class="b-category__tag">{{article.tags[0].name}}</div>
+          <div v-else class="b-category__tag empty "></div>
           <div class='date'>Feb 7,  2019</div>
         </div>
         <h2>{{article.title}}</h2>
@@ -15,7 +16,6 @@
 
       <img v-if='index > 1' v-lazy="getImgSrc(article)" @show="handler" alt="" class="b-category__img">
       <img v-else :src="getImgSrc(article)" alt="" class="b-category__img">
-      <!-- <div class='b-category__img' v-lazy-container="{ selector: 'img' }"  v-html= "getImgSrc(article)"></div> -->
     </div>
   </article>
 
@@ -64,3 +64,10 @@ export default {
 }
 
 </script>
+<style lang="scss">
+  .b-category__tag.empty {
+    border:none;
+    padding:0;
+    margin:0;
+  }
+</style>
