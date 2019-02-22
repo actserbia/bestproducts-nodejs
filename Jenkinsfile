@@ -2,7 +2,10 @@ node {
     def app
     stage('Clone repository') {
         checkout scm
-          dir ('/')
+            {
+            sh 'npm install'
+            sh 'npm run dev'
+    }
     }
     stage('Build image') {
         app = docker.build("kanso-cms/best-kanso:${env.BUILD_ID}")
