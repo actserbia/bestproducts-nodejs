@@ -31,6 +31,8 @@ export default {
     "index"
   ],
   mounted(){
+    window.lazySizesConfig = window.lazySizesConfig || {};
+    lazySizesConfig.preloadAfterLoad = true;
     require("lazysizes");
   },
   methods: {

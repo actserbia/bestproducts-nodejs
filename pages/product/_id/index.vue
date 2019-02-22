@@ -146,6 +146,11 @@ export default {
       }
     });
   },
+  mounted(){
+    window.lazySizesConfig = window.lazySizesConfig || {};
+    lazySizesConfig.preloadAfterLoad = true;
+    require("lazysizes");
+  }
 
   // beforeMounted() {
   //   // window.x = this.article.elements[1].data.text

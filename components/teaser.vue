@@ -37,6 +37,8 @@ export default {
   //   }
   // },
   mounted(){
+    window.lazySizesConfig = window.lazySizesConfig || {};
+    lazySizesConfig.preloadAfterLoad = true;
     require("lazysizes");
 
   },
