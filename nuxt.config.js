@@ -51,7 +51,7 @@ module.exports = {
   /*
   ** Plugins to load before mounting the App
   */
-  // plugins: ['~/plugins/vue-lazyload'],
+  // plugins: ['~/plugins/thumbor-builder.js'],
   /*
   ** Nuxt.js modules
   */

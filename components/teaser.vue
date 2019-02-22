@@ -13,9 +13,8 @@
         <p>{{article.additional_fields.intro}}</p>
         <p class='author'>Bill Fergus</p>
       </div>
-
-      <img v-if='index > 1' v-lazy="getImgSrc(article)" @show="handler" alt="" class="b-category__img">
-      <img v-else :src="getImgSrc(article)" alt="" class="b-category__img">
+      <img v-if='index > 1' :data-src="getImgSrc(article)[0]" data-sizes="auto" :data-srcset="getImgSrc(article)" @show="handler" alt="" class="b-category__img lazyload">
+      <img v-else :srcset="getImgSrc(article)" sizes="(max-width: 720px) 720w, (max-width: 1900px) 1900w," alt=""  :src="getImgSrc(article)[0]" class="b-category__img">
     </div>
   </article>
 
@@ -23,11 +22,8 @@
 
 <script>
 import Vue from 'vue'
-import VueLazyload from 'vue-lazyload'
-
-Vue.use(VueLazyload, {
-
-});
+import ThumborUrlBuilder from 'thumbor-url-builder';
+const thumbor = new ThumborUrlBuilder('cny/7t+#@qQ.:MPQ', 'https://thumbor.diwanee-serbia.com')
 
 export default {
 
@@ -35,6 +31,15 @@ export default {
     "article",
     "index"
   ],
+  // data(){
+  //   return {
+  //     thumborURL:new ThumborUrlBuilder('cny/7t+#@qQ.:MPQ', 'https://thumbor.diwanee-serbia.com'),
+  //   }
+  // },
+  mounted(){
+    require("lazysizes");
+
+  },
   methods: {
     handler (component) {
         console.log(`${component} is showing`);
@@ -43,20 +48,19 @@ export default {
       let imgElement = article.elements.filter(obj => {
         return obj.type === "image"
       })[0];
+      // console.log(document.documentElement.clientHeigh);
       if (!!imgElement) {
+        // console.log(this.$data.window.wid);
         // return `<img src="${imgElement.data.file.url}" alt="" class="">`;
-        return imgElement.data.file.url
+        var images = [];
+        images[0] = thumbor.setImagePath(imgElement.data.file.url).resize(338, 169).smartCrop(true).buildUrl() + " 720w";
+        images[1] = thumbor.setImagePath(imgElement.data.file.url).resize(590, 295).smartCrop(true).buildUrl()  + " 1900w";
+
+        return images
 
       }
       else {
-        // return `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-        // 	           viewBox="0 0 980 490" enable-background="new 0 0 980 490" xml:space="preserve">
-        //             <rect fill="#D8D8D8" stroke="#fff" stroke-miterlimit="10" width="980" height="490"/>
-        //             <text transform="matrix(1 0 0 1 362.5273 266.1328)" fill="#353032" font-family="'MyriadPro-Regular'" font-size="72">980x490</text>
-        //             <text transform="matrix(1 0 0 1 835.8613 481.4385)" font-family="'MyriadPro-Regular'" font-size="18">powered by vaske</text>
-        //        </svg>
-        //     `
-        return `https://placehold.it/980x490`
+        return [`https://placehold.it/338x169 720w`, `https://placehold.it/980x490  1600w`]
       }
     }
   }
