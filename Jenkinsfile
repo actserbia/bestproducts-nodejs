@@ -1,44 +1,44 @@
 pipeline {
+  environment {
+    registry = "srdjanbos/jenkinsbuild"
+    registryCredential = 'dockerhub'
+    dockerImage = ''
+  }
   agent any
-    
-  tools {nodejs "node"}
-    
+  tools {nodejs "node" }
   stages {
-        
     stage('Cloning Git') {
       steps {
         git 'https://github.com/diwaneemedia/bestproducts-nodejs'
       }
     }
-
-    stage('Install dependencies') {
-      steps {
-        sh 'npm install'
-        sh 'npm run dev'
-      }
+    stage('Build') {
+       steps {
+         sh 'npm install'
+         sh 'npm run dev'
+       }
     }
-     
-    stage('Build image') {
-        app = docker.build("kanso-cms/best-kanso:${env.BUILD_ID}")
-    }
-
-    stage('Push image') {
-      withDockerRegistry(url:'https://eu.gcr.io/kanso-cms/') {
-        app.push("${env.BUILD_NUMBER}")
-        app.push('latest')
-      }
-    }
-/*
-    stage('Deploy to K8S') {
-                 kubernetesDeploy(kubeconfigId: 'k8s-kanso',
-                 secretNamespace: 'cms-kanso',
-                 enableConfigSubstitution: true,
-                 configs: 'k8s-configs/daemon-set.yaml', // REQUIRED
-)
-}
-*/
-    stage('CleanWorkspace') {
-                cleanWs()
+    
+    stage('Building image') {
+      steps{
+        script {
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
-}
       }
+    }
+    stage('Deploy Image') {
+      steps{
+         script {
+            docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()
+          }
+        }
+      }
+    }
+    stage('Remove Unused docker image') {
+      steps{
+        sh "docker rmi $registry:$BUILD_NUMBER"
+      }
+    }
+  }
+}
