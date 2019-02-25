@@ -1,12 +1,23 @@
-node {
-    def app
-    stage('Clone repository') {
-        checkout scm
-            {
-            sh 'npm install'
-            sh 'npm run dev'
+pipeline {
+  agent any
+    
+  tools {nodejs "node"}
+    
+  stages {
+        
+    stage('Cloning Git') {
+      steps {
+        git 'https://github.com/diwaneemedia/bestproducts-nodejs'
+      }
     }
+
+    stage('Install dependencies') {
+      steps {
+        sh 'npm install'
+        sh 'npm run dev'
+      }
     }
+     
     stage('Build image') {
         app = docker.build("kanso-cms/best-kanso:${env.BUILD_ID}")
     }
@@ -30,3 +41,4 @@ node {
                 cleanWs()
         }
 }
+      }
