@@ -12,12 +12,6 @@ pipeline {
         git 'https://github.com/diwaneemedia/bestproducts-nodejs'
       }
     }
-    stage('Build') {
-       steps {
-         sh 'npm install'
-         sh 'npm run build'
-       }
-    }
     
     stage('Building image') {
       steps{
