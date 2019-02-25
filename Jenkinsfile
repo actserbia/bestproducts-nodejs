@@ -15,9 +15,15 @@ pipeline {
     stage('Build') {
        steps {
          sh 'npm install'
+         sh 'npm run dev'
        }
     }
     
+    stage('Initialize'){
+        def dockerHome = tool 'docker'
+        env.PATH = "${dockerHome}/bin:${env.PATH}"
+    }
+
     stage('Building image') {
       steps{
         script {
