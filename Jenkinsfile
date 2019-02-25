@@ -4,7 +4,7 @@ pipeline {
     registryCredential = 'dockerhub'
     dockerImage = ''
   }
-  agent { dockerfile true }
+  agent any
   tools {nodejs "node" }
   stages {
     stage('Cloning Git') {
@@ -15,7 +15,7 @@ pipeline {
     stage('Build') {
        steps {
          sh 'npm install'
-         sh 'npm run dev'
+         sh 'npm run build'
        }
     }
     
