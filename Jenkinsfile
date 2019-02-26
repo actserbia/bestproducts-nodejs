@@ -22,7 +22,7 @@ pipeline {
     stage('Building image') {
       steps{
         script {
-          dockerImage = docker.build registry + ":$env.BUILD_ID"
+          dockerImage = docker.build -t registry + ":$env.BUILD_ID"
         }
       }
     }
