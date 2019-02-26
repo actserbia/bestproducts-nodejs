@@ -13,15 +13,16 @@ pipeline {
       }
     }
     stage('Build') {
-      steps {
-        sh 'npm install'
-        sh 'npm run build'
+       steps {
+         sh 'npm install'
+         sh 'npm run build'
        }
-    } 
+    }
+
     stage('Building image') {
       steps{
         script {
-          dockerImage = docker.build registry + ":$BUILD_NUMBER"
+          dockerImage = docker.build registry + ":$env.BUILD_ID"
         }
       }
     }
@@ -29,15 +30,16 @@ pipeline {
       steps{
          script {
             docker.withRegistry( '', registryCredential ) {
-            dockerImage.push()
+            dockerImage.push("${env.BUILD_NUMBER}")
           }
         }
       }
     }
     stage('Remove Unused docker image') {
       steps{
-        sh "docker rmi $registry:$BUILD_NUMBER"
+        sh "docker rmi $registry:$env.BUILD_ID"
       }
     }
   }
 }
+
