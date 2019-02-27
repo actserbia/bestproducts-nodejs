@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <div v-for="(article, index) in articles">
+    <div v-for="(article, index) in articles" :key="index">
 
 
       <nuxt-link :to="{name: 'product-id', params: {id: article.id}}" :key="article.id"  :data-art-id='article.id'>

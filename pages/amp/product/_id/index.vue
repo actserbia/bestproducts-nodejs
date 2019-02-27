@@ -12,12 +12,15 @@
          data-sizes="auto"
         :data-srcset="getImgSrc(article)" alt="" class="b-teaser__img lazyload">
 
+        
+
         <div v-html="element.data.text" v-if="element.type==='text'" class="b-teaser__text" ></div>
 
         <Teaser :isLazy="true" :index="index" v-if="element.type==='node'" :article="element.element_item" />
       </div>
       <div v-else class='one'>
         <img v-if="element.type==='image'" :srcset="getImgSrc(article)" sizes="(max-width:640px) 640w, (max-width: 1600px) 1600w," alt=""  :src="getImgSrc(article)[1]" class="b-teaser__img">
+        
 
         <div v-html="element.data.text" v-if="element.type==='text'" class="b-teaser__text" ></div>
 
