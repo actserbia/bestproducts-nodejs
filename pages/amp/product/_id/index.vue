@@ -1,37 +1,28 @@
 <template>
   <div class="container">
-
-
     <h1>{{article.title}}</h1>
     <h5 v-html="article.additional_fields.intro"></h5>
-
     <div class="b-teaser" v-for="( element, index) in article.elements" :key="index">
       <div v-if="index > 1" class='more-than-one'>
+        <!-- this one is not covered, can't find the example with it -->
         <img v-if="element.type==='image'"
         :data-src="getImgSrc(article)[1]"
          data-sizes="auto"
         :data-srcset="getImgSrc(article)" alt="" class="b-teaser__img lazyload">
-
-        
 
         <div v-html="element.data.text" v-if="element.type==='text'" class="b-teaser__text" ></div>
 
         <Teaser :isLazy="true" :index="index" v-if="element.type==='node'" :article="element.element_item" />
       </div>
       <div v-else class='one'>
-        <img v-if="element.type==='image'" :srcset="getImgSrc(article)" sizes="(max-width:640px) 640w, (max-width: 1600px) 1600w," alt=""  :src="getImgSrc(article)[1]" class="b-teaser__img">
-        
+        <!-- <img v-if="element.type==='image'" :srcset="getImgSrc(article)" sizes="(max-width:640px) 640w, (max-width: 1600px) 1600w," alt=""  :src="getImgSrc(article)[1]" class="b-teaser__img"> -->
+        <amp-img v-if="element.type==='image'" :srcset="getImgSrc(article)" alt="" width="728" height="364" layout="responsive" :src="getImgSrc(article)[1]" class="b-teaser__img"/>
 
         <div v-html="element.data.text" v-if="element.type==='text'" class="b-teaser__text" ></div>
 
         <Teaser :index="index" :isLazy="false" v-if="element.type==='node'" :article="element.element_item" />
       </div>
-
     </div>
-
-
-
-
   </div>
 </template>
 
@@ -46,15 +37,22 @@ const thumbor = new ThumborUrlBuilder('cny/7t+#@qQ.:MPQ', 'https://thumbor.diwan
 
 
 export default {
-
+  data(){
+    return {
+      id: null
+    }
+  },
   components: {
     Teaser
   },
-
-
   head(){
     return {
       title: this.article.additional_fields.meta_title,
+      link: [
+        // change href
+        // { rel: 'canonical', href: 'http://localhost:3000/product/' + this.id }
+        { rel: 'canonical', href: 'https://bestproducts.appspot.com/product/' + this.id }
+      ],
       meta: [
         {name: "description", content: this.article.additional_fields.meta_description},
         //{property: "og:image", content: "TO BE CHANGED"},
@@ -93,9 +91,6 @@ export default {
       return;
     }
     // FETCHING
-
-
-
     let query = 'node?query=' + encodeURIComponent(`{
       nodes(id: ${regexed}) {
         id
@@ -138,7 +133,10 @@ export default {
       url: process.env.apiServer + query,
     })
     .then(function(response){
-      return {article: response.data.data.nodes[0]};
+      return {
+        article: response.data.data.nodes[0],
+        id: context.route.params.id
+      };
     })
     .catch(function (error) {
       if(error.response.status===404){

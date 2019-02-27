@@ -1,15 +1,12 @@
 <template>
   <section class="container">
     <div v-for="(article, index) in articles" :key="index">
-
-
-      <nuxt-link :to="{name: 'product-id', params: {id: article.id}}" :data-art-id='article.id'>
+      <!-- <nuxt-link :to="{name: 'product-id', params: {id: article.id}}" :data-art-id='article.id'>
+        <Teaser :index="index" :article="article" />
+      </nuxt-link> -->
+      <nuxt-link :to="{ path:'/amp/product/' + article.id, params: {id: article.id}}" :data-art-id='article.id'>
         <Teaser :index="index" :article="article" />
       </nuxt-link>
-
-
-
-
     </div>
   </section>
 </template>
@@ -34,6 +31,7 @@ export default {
         title: "Best Products - AMP",
         link: [
           // change href
+          // { rel: 'canonical', href: 'http://localhost:3000/' + this.canonical }
           { rel: 'canonical', href: 'https://bestproducts.appspot.com/' + this.canonical }
         ],
         meta: [

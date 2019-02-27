@@ -16,11 +16,11 @@
       <!-- <img v-if='index > 1' :data-src="getImgSrc(article)[0]" data-sizes="auto" :data-srcset="getImgSrc(article)" @show="handler" alt="" class="b-category__img lazyload" style="border: 3px solid red"> -->
       <!-- <img v-else :srcset="getImgSrc(article)" sizes="(max-width: 720px) 720w, (max-width: 1900px) 1900w," alt=""  :src="getImgSrc(article)[0]" class="b-category__img" style="border: 3px solid green"> -->
 
-      <img v-if='index > 1 && !ampRoute' :data-src="getImgSrc(article)[0]" data-sizes="auto" :data-srcset="getImgSrc(article)" @show="handler" alt="" class="b-category__img lazyload" style="border: 3px solid red">
-      <img v-if='index <= 1 && !ampRoute' :srcset="getImgSrc(article)" sizes="(max-width: 720px) 720w, (max-width: 1900px) 1900w," alt=""  :src="getImgSrc(article)[0]" class="b-category__img" style="border: 3px solid green">
+      <img v-if='index > 1 && !ampRoute' :data-src="getImgSrc(article)[0]" data-sizes="auto" :data-srcset="getImgSrc(article)" @show="handler" alt="" class="b-category__img lazyload">
+      <img v-if='index <= 1 && !ampRoute' :srcset="getImgSrc(article)" sizes="(max-width: 720px) 720w, (max-width: 1900px) 1900w," alt=""  :src="getImgSrc(article)[0]" class="b-category__img">
       
-      <amp-img v-if='index > 1 && ampRoute' width="400" height="200" layout="responsive" :data-src="getImgSrc(article)[0]" :src="getImgSrc(article, true)[0]" :data-srcset="getImgSrc(article)" @show="handler" alt="" class="b-category__img lazyload" style="border: 3px solid red"/>
-      <amp-img v-if="index <= 1 && ampRoute" :srcset="getImgSrc(article)" alt="" width="400" height="200" layout="responsive" :src="getImgSrc(article)[0]" class="b-category__img" style="border: 3px solid green"/>
+      <amp-img v-if='index > 1 && ampRoute' width="400" height="200" layout="responsive" :data-src="getImgSrc(article)[0]" :src="getImgSrc(article, true)[0]" :data-srcset="getImgSrc(article)" @show="handler" alt="" class="b-category__img lazyload"/>
+      <amp-img v-if="index <= 1 && ampRoute" :srcset="getImgSrc(article)" alt="" width="400" height="200" layout="responsive" :src="getImgSrc(article)[0]" class="b-category__img"/>
 
     </div>
   </article>

@@ -41,10 +41,6 @@ module.exports = {
   /*
   ** Global CSS
   */
-  render: {
-  // Disable resourceHints since we don't load any scripts for AMP
-    // resourceHints: false
-  },
   css: [
     '@/assets/scss/example.scss'
   ],
