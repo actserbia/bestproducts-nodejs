@@ -30,7 +30,6 @@ export default {
       return {
         title: "Best Products - AMP",
         link: [
-          // change href
           // { rel: 'canonical', href: 'http://localhost:3000/' + this.canonical }
           { rel: 'canonical', href: 'https://bestproducts.appspot.com/' + this.canonical }
         ],

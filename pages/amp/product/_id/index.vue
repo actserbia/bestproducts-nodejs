@@ -49,7 +49,6 @@ export default {
     return {
       title: this.article.additional_fields.meta_title,
       link: [
-        // change href
         // { rel: 'canonical', href: 'http://localhost:3000/product/' + this.id }
         { rel: 'canonical', href: 'https://bestproducts.appspot.com/product/' + this.id }
       ],
