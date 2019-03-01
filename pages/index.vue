@@ -36,6 +36,10 @@ export default {
     head(){
       return {
         title: "Best Products",
+        link: [
+          // { rel: 'amphtml', href: 'http://localhost:3000' }
+          { rel: 'amphtml', href: 'https://bestproducts.appspot.com/amp' }
+        ],
         meta: [
           {name: "description", content: "best products ever"},
           //{property: "og:image", content: "TO BE CHANGED"},

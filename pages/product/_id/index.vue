@@ -43,15 +43,21 @@ const thumbor = new ThumborUrlBuilder('cny/7t+#@qQ.:MPQ', 'https://thumbor.diwan
 
 
 export default {
-
+  data(){
+    return {
+      id: null
+    }
+  },
   components: {
     Teaser
   },
-
-
   head(){
     return {
       title: this.article.additional_fields.meta_title,
+      link: [
+        // { rel: 'amphtml', href: 'http://localhost:3000/amp/product/' + this.id }
+        { rel: 'amphtml', href: 'https://bestproducts.appspot.com/amp/product/' + this.id }
+      ],
       meta: [
         {name: "description", content: this.article.additional_fields.meta_description},
         //{property: "og:image", content: "TO BE CHANGED"},
@@ -135,7 +141,10 @@ export default {
       url: process.env.apiServer + query,
     })
     .then(function(response){
-      return {article: response.data.data.nodes[0]};
+      return {
+        article: response.data.data.nodes[0],
+        id: context.route.params.id
+      };
     })
     .catch(function (error) {
       if(error.response.status===404){
