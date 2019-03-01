@@ -1,15 +1,12 @@
 <template>
   <section class="container">
     <div v-for="(article, index) in articles" :key="index">
-
-
-      <nuxt-link :to="{name: 'product-id', params: {id: article.id}}" :data-art-id='article.id'>
+      <!-- <nuxt-link :to="{name: 'product-id', params: {id: article.id}}" :data-art-id='article.id'>
+        <Teaser :index="index" :article="article" />
+      </nuxt-link> -->
+      <nuxt-link :to="{ path:'/amp/product/' + article.id, params: {id: article.id}}" :data-art-id='article.id'>
         <Teaser :index="index" :article="article" />
       </nuxt-link>
-
-
-
-
     </div>
   </section>
 </template>
@@ -31,10 +28,10 @@ export default {
     },
     head(){
       return {
-        title: "Best Products",
+        title: "Best Products - AMP",
         link: [
-          // { rel: 'amphtml', href: 'http://localhost:3000/amp/' + this.canonical }
-          { rel: 'amphtml', href: 'https://bestproducts.appspot.com/amp/' + this.canonical }
+          // { rel: 'canonical', href: 'http://localhost:3000/' + this.canonical }
+          { rel: 'canonical', href: 'https://bestproducts.appspot.com/' + this.canonical }
         ],
         meta: [
           {name: "description", content: "best products ever"},
@@ -42,7 +39,6 @@ export default {
         ]
       }
     },
-
     asyncData (context) {
       let _this = this;
       // console.log(context.params.category );
@@ -85,9 +81,7 @@ export default {
     console.log(this.articles);
     // window.x = this.articles;
   }
-
 }
-
 </script>
 
 <style>

@@ -1,12 +1,10 @@
 <template>
   <div class="container">
-
-
     <h1>{{article.title}}</h1>
     <h5 v-html="article.additional_fields.intro"></h5>
-
     <div class="b-teaser" v-for="( element, index) in article.elements" :key="index">
       <div v-if="index > 1" class='more-than-one'>
+        <!-- this one is not covered, can't find the example with it -->
         <img v-if="element.type==='image'"
         :data-src="getImgSrc(article)[1]"
          data-sizes="auto"
@@ -17,18 +15,14 @@
         <Teaser :isLazy="true" :index="index" v-if="element.type==='node'" :article="element.element_item" />
       </div>
       <div v-else class='one'>
-        <img v-if="element.type==='image'" :srcset="getImgSrc(article)" sizes="(max-width:640px) 640w, (max-width: 1600px) 1600w," alt=""  :src="getImgSrc(article)[1]" class="b-teaser__img">
+        <!-- <img v-if="element.type==='image'" :srcset="getImgSrc(article)" sizes="(max-width:640px) 640w, (max-width: 1600px) 1600w," alt=""  :src="getImgSrc(article)[1]" class="b-teaser__img"> -->
+        <amp-img v-if="element.type==='image'" :srcset="getImgSrc(article)" alt="" width="728" height="364" layout="responsive" :src="getImgSrc(article)[1]" class="b-teaser__img"/>
 
         <div v-html="element.data.text" v-if="element.type==='text'" class="b-teaser__text" ></div>
 
         <Teaser :index="index" :isLazy="false" v-if="element.type==='node'" :article="element.element_item" />
       </div>
-
     </div>
-
-
-
-
   </div>
 </template>
 
@@ -55,8 +49,8 @@ export default {
     return {
       title: this.article.additional_fields.meta_title,
       link: [
-        // { rel: 'amphtml', href: 'http://localhost:3000/amp/product/' + this.id }
-        { rel: 'amphtml', href: 'https://bestproducts.appspot.com/amp/product/' + this.id }
+        // { rel: 'canonical', href: 'http://localhost:3000/product/' + this.id }
+        { rel: 'canonical', href: 'https://bestproducts.appspot.com/product/' + this.id }
       ],
       meta: [
         {name: "description", content: this.article.additional_fields.meta_description},
@@ -96,9 +90,6 @@ export default {
       return;
     }
     // FETCHING
-
-
-
     let query = 'node?query=' + encodeURIComponent(`{
       nodes(id: ${regexed}) {
         id

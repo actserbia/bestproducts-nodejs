@@ -1,4 +1,5 @@
 const pkg = require('./package')
+const ampify = require('./plugins/ampify')
 
 
 module.exports = {
@@ -35,7 +36,8 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#ff0000' },
+  // loading: { color: '#ff0000' },
+  loading: false,
   /*
   ** Global CSS
   */
@@ -47,6 +49,22 @@ module.exports = {
     short_name: 'BestProducts',
     description: "Fastest web app on the market.",
     lang: 'en-US'
+  },
+  hooks: {
+    // This hook is called before saving the html to flat file
+    'generate:page': (page) => {
+      // if (/^\/amp\//gi.test(page.route)) {
+      if (/^\/amp/gi.test(page.route)) {
+        page.html = ampify(page.html)
+      }
+    },
+    // This hook is called before serving the html to the browser
+    'render:route': (url, page, { req, res }) => {
+      // if (/^\/amp\//gi.test(url)) {
+      if (/^\/amp/gi.test(url)) {
+        page.html = ampify(page.html)
+      }
+    }
   },
   /*
   ** Plugins to load before mounting the App
